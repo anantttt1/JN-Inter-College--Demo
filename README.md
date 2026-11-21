@@ -6,6 +6,14 @@ Open `index.html` in a modern browser. The page uses HTML, CSS and JavaScript an
 
 Update `site-config.js` with confirmed school name, address, phone, email and year. Unknown details are intentionally blank and remain visibly marked as placeholders. Replace the illustrative photos in `index.html` with school-owned images before publishing. Do not treat the sample events, facilities or content as verified school facts.
 
+## Look and feel
+
+The design uses a bright school palette (royal blue, sunshine yellow, orange and mint) with large, readable type: body text is 19px on desktop and 18px on phones, and nothing renders below 14px on desktop or 13px on phones. Fonts are Baloo 2 and Mukta (both include Devanagari).
+
+- Every section has depth: 3D tilt cards that follow the pointer, a hero with floating 3D shapes and a Three.js campus, sticky-button press effects, magnetic buttons, a soft cursor glow, photo parallax and scroll-triggered fly-in animations.
+- The "at a glance" strip counts up when it scrolls into view. Its numbers are demo values: edit the `stats` list in `site-config.js` to use the school's confirmed figures.
+- Pointer-only effects (tilt, glow, magnetic buttons) are skipped on touch devices, and all animation is reduced when the visitor prefers reduced motion.
+
 ## Demo interactions
 
 - Hindi is the default; the EN / हि control switches all visible copy and remembers the choice.

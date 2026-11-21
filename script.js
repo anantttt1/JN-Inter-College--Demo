@@ -14,6 +14,14 @@
     $$('.footer-bottom>span:first-child').forEach(el => {
       el.innerHTML = `© ${config.year || '2026'} ${name} <i>·</i> <span data-en="DESIGN PREVIEW — DEMO PLACEHOLDERS" data-hi="डिज़ाइन प्रीव्यू — डेमो प्लेसहोल्डर">डिज़ाइन प्रीव्यू — डेमो प्लेसहोल्डर</span>`;
     });
+    $$('.stat-num[data-count]').forEach((el, i) => {
+      const stat = config.stats && config.stats[i];
+      if (stat && stat.value != null) { el.dataset.count = stat.value; el.dataset.suffix = stat.suffix || ''; }
+    });
+    $$('.stat-label').forEach((el, i) => {
+      const stat = config.stats && config.stats[i];
+      if (stat && stat.en && stat.hi) { el.dataset.en = stat.en; el.dataset.hi = stat.hi; }
+    });
     const detailEls = $$('.contact-details b');
     if (detailEls[0] && config.address) detailEls[0].textContent = config.address;
     if (detailEls[1] && config.phone) detailEls[1].textContent = config.phone;
@@ -50,7 +58,8 @@
   });
   $$('.nav a').forEach(link => link.addEventListener('click', () => { nav.classList.remove('open'); menuButton.setAttribute('aria-expanded', 'false'); menuButton.setAttribute('aria-label', language === 'hi' ? 'मेन्यू खोलें' : 'Open menu'); }));
   let motionFrame = 0;
-  const motionImages = $$('.intro-image-wrap img,.campus-photos img,.life-feature img,.life-tile img,.gallery-item img,.admissions-photo img');
+  const motionImages = $$('.campus-photos img,.life-feature>img,.manifesto>img,.admissions-photo img');
+  motionImages.forEach(img => img.classList.add('parallax-img'));
   function updateScrollMotion() {
     motionFrame = 0;
     $('.header').classList.toggle('scrolled', window.scrollY > 8);
@@ -58,25 +67,70 @@
     progressBar.style.setProperty('--scroll-progress', `${maxScroll > 0 ? window.scrollY / maxScroll * 100 : 0}%`);
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     motionImages.forEach(img => {
-      const rect = img.getBoundingClientRect();
+      const rect = img.parentElement.getBoundingClientRect();
       if (rect.bottom < -80 || rect.top > innerHeight + 80) return;
-      const offset = ((rect.top + rect.height / 2 - innerHeight / 2) / innerHeight) * -12;
+      const max = Math.min(rect.height * .055, 34);
+      const norm = (rect.top + rect.height / 2 - innerHeight / 2) / innerHeight;
+      const offset = Math.max(-max, Math.min(max, norm * -max * 2));
       img.style.setProperty('--scroll-shift', `${offset.toFixed(1)}px`);
     });
   }
   window.addEventListener('scroll', () => { if (!motionFrame) motionFrame = requestAnimationFrame(updateScrollMotion); }, { passive: true });
   updateScrollMotion();
-  const revealTargets = $$('.intro-layout,.values-row,.manifesto-content,.section-heading-row,.learning-card,.campus-layout,.facility-line,.life-feature,.life-tile,.gallery-item,.event-row,.contact-layout');
-  revealTargets.forEach(el => {
-    el.classList.add('reveal');
-    const siblings = [...el.parentElement.children].filter(sibling => sibling.matches('.learning-card,.gallery-item,.event-row,.values-row>div,.life-tile,.campus-photos figure'));
-    const order = Math.max(0, siblings.indexOf(el));
-    el.style.setProperty('--reveal-delay', `${Math.min(order, 5) * 85}ms`);
-  });
+  // Scroll reveal: every block flies in from its own direction, with a stagger between siblings.
+  const fxFor = (el, index) => {
+    if (el.matches('.learning-card')) return 'flip';
+    if (el.matches('.gallery-item,.stat-card')) return 'zoom';
+    if (el.matches('.life-feature,.admissions-photo')) return 'left';
+    if (el.matches('.life-tile,.admissions-panel')) return 'right';
+    if (el.matches('.event-row')) return index % 2 ? 'right' : 'left';
+    return '';
+  };
+  const staggerSelector = '.learning-card,.gallery-item,.event-row,.stat-card,.life-tile';
+  const revealObserver = 'IntersectionObserver' in window
+    ? new IntersectionObserver(entries => entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        el.classList.add('visible');
+        revealObserver.unobserve(el);
+        setTimeout(() => el.classList.add('revealed'), 1900);
+      }), { threshold: .08 })
+    : null;
+  function jnReveal(targets) {
+    [...targets].forEach(el => {
+      if (el.classList.contains('reveal')) return;
+      el.classList.add('reveal');
+      const siblings = [...el.parentElement.children].filter(sibling => sibling.matches(staggerSelector));
+      const order = Math.max(0, siblings.indexOf(el));
+      const fx = fxFor(el, order);
+      if (fx) el.dataset.fx = fx;
+      el.style.setProperty('--reveal-delay', `${Math.min(order, 5) * 90}ms`);
+      if (revealObserver) revealObserver.observe(el); else el.classList.add('visible', 'revealed');
+    });
+  }
+  window.jnReveal = jnReveal;
+  jnReveal($$('.intro-layout,.values-row,.manifesto-content,.section-heading-row,.stat-card,.learning-card,.campus-layout,.facility-line,.life-feature,.life-tile,.gallery-item,.event-row,.contact-layout,.admissions-photo,.admissions-panel'));
+
+  // Count-up numbers in the "at a glance" strip.
+  const formatNum = n => Math.round(n).toLocaleString('en-IN');
+  const countEls = $$('.stat-num[data-count]');
+  function runCounter(el) {
+    const end = Number(el.dataset.count) || 0, suffix = el.dataset.suffix || '';
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { el.textContent = formatNum(end) + suffix; return; }
+    const begin = performance.now(), duration = 2200;
+    const tick = now => {
+      const t = Math.min(1, (now - begin) / duration);
+      el.textContent = formatNum(t === 1 ? end : end * (1 - Math.pow(2, -10 * t))) + suffix;
+      if (t < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
   if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } }), { threshold: .08 });
-    revealTargets.forEach(el => observer.observe(el));
-  } else revealTargets.forEach(el => el.classList.add('visible'));
+    const countObserver = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (entry.isIntersecting) { runCounter(entry.target); countObserver.unobserve(entry.target); }
+    }), { threshold: .5 });
+    countEls.forEach(el => { el.textContent = '0' + (el.dataset.suffix || ''); countObserver.observe(el); });
+  } else countEls.forEach(el => { el.textContent = formatNum(el.dataset.count) + (el.dataset.suffix || ''); });
   $$('.filter').forEach(button => button.addEventListener('click', () => {
     $$('.filter').forEach(item => item.classList.toggle('active', item === button));
     const filter = button.dataset.filter;
@@ -115,18 +169,20 @@
     if (img.dataset.fallback) return; img.dataset.fallback = 'true';
     img.src = 'assets/image-fallback.svg';
   }));
+  // Images that already failed before this script ran never fire a new error event, so swap them now.
+  $$('img').forEach(img => { if (img.complete && img.naturalWidth === 0 && img.getAttribute('src')) img.dispatchEvent(new Event('error')); });
 
   // Pointer controlled 3D tilt for larger screens; touch and reduced-motion users keep a calm layout.
   const tiltQuery = window.matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
   if (tiltQuery.matches) {
-    const tiltItems = $$('.learning-card,.gallery-item,.life-feature,.life-tile,.campus-photos figure,.event-row,.contact-form,.admissions-photo,.intro-image-wrap,.admission-process div,.button');
+    const tiltItems = $$('.learning-card,.gallery-item,.life-feature,.life-tile,.event-row,.contact-form,.intro-image-wrap,.stat-card');
     tiltItems.forEach(el => {
       el.classList.add('tilt-surface');
       el.addEventListener('pointermove', event => {
         const box = el.getBoundingClientRect();
         const x = (event.clientX - box.left) / box.width - .5;
         const y = (event.clientY - box.top) / box.height - .5;
-        const tilt = el.matches('.button,.admission-process div') ? 7 : 5;
+        const tilt = el.matches('.stat-card,.learning-card') ? 10 : 6;
         el.style.setProperty('--light-x', `${((x + .5) * 100).toFixed(1)}%`);
         el.style.setProperty('--light-y', `${((y + .5) * 100).toFixed(1)}%`);
         el.style.setProperty('--tilt-x', `${(-y * tilt).toFixed(2)}deg`);
@@ -138,6 +194,35 @@
         el.style.removeProperty('--light-x');
         el.style.removeProperty('--light-y');
       });
+    });
+
+    // Soft light that follows the cursor, hero shapes that drift with it, and magnetic buttons.
+    const glow = document.createElement('div');
+    glow.className = 'cursor-glow'; glow.setAttribute('aria-hidden', 'true'); document.body.append(glow);
+    let glowX = 0, glowY = 0, glowFrame = 0;
+    window.addEventListener('pointermove', event => {
+      glowX = event.clientX; glowY = event.clientY; glow.classList.add('on');
+      if (!glowFrame) glowFrame = requestAnimationFrame(() => {
+        glowFrame = 0;
+        glow.style.setProperty('--gx', `${glowX}px`); glow.style.setProperty('--gy', `${glowY}px`);
+      });
+    }, { passive: true });
+    document.documentElement.addEventListener('pointerleave', () => glow.classList.remove('on'));
+    const hero = $('.hero'), shapes = $('.float-shapes');
+    if (hero && shapes) {
+      hero.addEventListener('pointermove', event => {
+        const box = hero.getBoundingClientRect();
+        shapes.style.setProperty('--mx', ((event.clientX - box.left) / box.width - .5).toFixed(3));
+        shapes.style.setProperty('--my', ((event.clientY - box.top) / box.height - .5).toFixed(3));
+      }, { passive: true });
+      hero.addEventListener('pointerleave', () => { shapes.style.setProperty('--mx', 0); shapes.style.setProperty('--my', 0); });
+    }
+    $$('.button,.nav-cta').forEach(el => {
+      el.addEventListener('pointermove', event => {
+        const box = el.getBoundingClientRect();
+        el.style.translate = `${((event.clientX - box.left - box.width / 2) * .18).toFixed(1)}px ${((event.clientY - box.top - box.height / 2) * .3).toFixed(1)}px`;
+      });
+      el.addEventListener('pointerleave', () => { el.style.translate = ''; });
     });
   }
 })();

@@ -16,6 +16,7 @@ const mapMarkup = `
 
 const lifeSection = document.querySelector('#life');
 if (lifeSection) lifeSection.insertAdjacentHTML('beforebegin', mapMarkup);
+window.jnReveal?.(document.querySelectorAll('#campus-map .campus-map-heading, #campus-map .campus-map-layout'));
 
 function syncLanguage() {
   const language = document.documentElement.lang === 'en' ? 'en' : 'hi';
@@ -71,7 +72,7 @@ document.querySelectorAll('canvas[data-3d-scene]').forEach(canvas => canvasObser
 function mountScene(THREE, canvas) {
   let renderer;
   try {
-    renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false, powerPreference: 'low-power' });
+    renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: matchMedia('(pointer: fine)').matches, powerPreference: 'low-power' });
   } catch (_) {
     canvas.classList.add('scene-fallback');
     return;
@@ -83,19 +84,20 @@ function mountScene(THREE, canvas) {
   if (isCampus) camera.position.set(10, 10, 11); else camera.position.set(0, 5.8, 13.5);
   const target = new THREE.Vector3(0, isCampus ? 0.4 : 1.3, 0);
   camera.lookAt(target);
-  scene.add(new THREE.HemisphereLight(0xf7f1df, 0x293a31, 2.0));
-  const keyLight = new THREE.DirectionalLight(0xffe8b5, 3.2);
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x6b86ff, 2.1));
+  const keyLight = new THREE.DirectionalLight(0xfff0c2, 3.0);
   keyLight.position.set(-5, 10, 8); scene.add(keyLight);
-  const fillLight = new THREE.DirectionalLight(0xa9c8b4, 1.2);
+  const fillLight = new THREE.DirectionalLight(0x8fb0ff, 1.6);
   fillLight.position.set(7, 5, -5); scene.add(fillLight);
   renderer.setClearColor(0x000000, 0);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.18;
+  renderer.toneMappingExposure = 1.08;
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   keyLight.castShadow = true;
-  keyLight.shadow.mapSize.set(512,512);
+  const shadowSize = matchMedia('(pointer: fine)').matches ? 1024 : 512;
+  keyLight.shadow.mapSize.set(shadowSize, shadowSize);
   const finePointer = matchMedia('(pointer: fine)').matches;
   const resize = () => {
     const rect = canvas.getBoundingClientRect();
@@ -113,9 +115,9 @@ function mountScene(THREE, canvas) {
 
   const mat = (color, roughness = .64, extra = {}) => new THREE.MeshStandardMaterial({ color, roughness, metalness: .04, ...extra });
   const mats = {
-    ground: mat(0x71846b), grass: mat(0x839477), ivory: mat(0xe7dcc2), wall: mat(0xd8ccb0), roof: mat(0x21483b), dark: mat(0x19392f),
-    gold: mat(0xc7a75f, .35, { metalness: .25 }), glass: mat(0x8db8b0, .3, { metalness: .1 }), book: mat(0x9a6c3f), red: mat(0x9e5f4b), sky: mat(0x6e9a91),
-    leaf: mat(0x52765c), leafLight: mat(0x78926d), court: mat(0x9f916f), path: mat(0xc8b78c), white: mat(0xf5f0e4), science: mat(0xadcfc2, .28)
+    ground: mat(0x2e8f5a), grass: mat(0x58c878), ivory: mat(0xfff4d6), wall: mat(0xffe9b0), roof: mat(0x2b50ff), dark: mat(0x0b1f66),
+    gold: mat(0xffc92e, .3, { metalness: .3 }), glass: mat(0x7fe3ff, .25, { metalness: .1 }), book: mat(0xb5651d), red: mat(0xff5c8a), sky: mat(0x2fb8ff),
+    leaf: mat(0x1fae6b), leafLight: mat(0x6fe08f), court: mat(0xff7a3d), path: mat(0xf3dfa2), white: mat(0xffffff), science: mat(0x9ff0dd, .25)
   };
   const box = (parent, dims, position, material, zone = null, rotation = null) => {
     const mesh = new THREE.Mesh(new THREE.BoxGeometry(...dims), material);
@@ -206,11 +208,11 @@ function mountScene(THREE, canvas) {
     sphere(cap,.055,[.42,-.46,.38],mats.gold,null,8);
     const emblemCanvas = document.createElement('canvas'); emblemCanvas.width = 256; emblemCanvas.height = 256;
     const emblemContext = emblemCanvas.getContext('2d');
-    emblemContext.fillStyle = '#f3eddf'; emblemContext.fillRect(0,0,256,256);
-    emblemContext.strokeStyle = '#c5a45e'; emblemContext.lineWidth = 8; emblemContext.beginPath(); emblemContext.arc(128,128,113,0,Math.PI*2); emblemContext.stroke();
-    emblemContext.strokeStyle = '#173b32'; emblemContext.lineWidth = 3; emblemContext.beginPath(); emblemContext.arc(128,128,101,0,Math.PI*2); emblemContext.stroke();
-    emblemContext.fillStyle = '#173b32'; emblemContext.font = 'bold 88px Georgia'; emblemContext.textAlign = 'center'; emblemContext.textBaseline = 'middle'; emblemContext.fillText('JN',128,117);
-    emblemContext.fillStyle = '#a1844b'; emblemContext.font = 'bold 16px Arial'; emblemContext.fillText('INTER COLLEGE',128,188);
+    emblemContext.fillStyle = '#fff8e1'; emblemContext.fillRect(0,0,256,256);
+    emblemContext.strokeStyle = '#ffc92e'; emblemContext.lineWidth = 12; emblemContext.beginPath(); emblemContext.arc(128,128,113,0,Math.PI*2); emblemContext.stroke();
+    emblemContext.strokeStyle = '#2b50ff'; emblemContext.lineWidth = 5; emblemContext.beginPath(); emblemContext.arc(128,128,98,0,Math.PI*2); emblemContext.stroke();
+    emblemContext.fillStyle = '#1236c9'; emblemContext.font = 'bold 92px Arial'; emblemContext.textAlign = 'center'; emblemContext.textBaseline = 'middle'; emblemContext.fillText('JN',128,115);
+    emblemContext.fillStyle = '#ff7a3d'; emblemContext.font = 'bold 17px Arial'; emblemContext.fillText('INTER COLLEGE',128,188);
     const emblemTexture = new THREE.CanvasTexture(emblemCanvas); emblemTexture.colorSpace = THREE.SRGBColorSpace;
     const emblem = new THREE.Group(); emblem.position.set(3.5,3.0,-1.1); emblem.rotation.y = -.15; objects.add(emblem);
     const emblemFace = new THREE.MeshBasicMaterial({map:emblemTexture});
@@ -226,6 +228,22 @@ function mountScene(THREE, canvas) {
     });
     world.userData.objects = objects;
   }
+
+  // Golden sparkles drifting around the scene for extra depth.
+  const sparkles = (() => {
+    const count = finePointer ? 170 : 80;
+    const positions = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++) {
+      const radius = (isCampus ? 7 : 5.5) + Math.random() * 4.5;
+      const theta = Math.random() * Math.PI * 2, y = (Math.random() - .25) * (isCampus ? 7 : 8);
+      positions.set([Math.cos(theta) * radius, y + 2, Math.sin(theta) * radius], i * 3);
+    }
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    const points = new THREE.Points(geometry, new THREE.PointsMaterial({ color: 0xffe27a, size: .13, transparent: true, opacity: .95, depthWrite: false }));
+    scene.add(points);
+    return points;
+  })();
 
   const pickTargets = [];
   world.traverse(object => { if (object.isMesh && object.userData.zone) pickTargets.push(object); });
@@ -269,8 +287,8 @@ function mountScene(THREE, canvas) {
     selectedMesh = zone;
     world.traverse(object => {
       if (!object.isMesh || !object.userData.zone || !object.material?.emissive) return;
-      object.material.emissive.set(object.userData.zone === selectedMesh ? 0x4a3711 : 0x000000);
-      object.material.emissiveIntensity = object.userData.zone === selectedMesh ? .34 : 0;
+      object.material.emissive.set(object.userData.zone === selectedMesh ? 0xffa000 : 0x000000);
+      object.material.emissiveIntensity = object.userData.zone === selectedMesh ? .5 : 0;
     });
   }
   window.addEventListener('jn-campus-zone', event => highlightZone(event.detail.zone));
@@ -286,11 +304,14 @@ function mountScene(THREE, canvas) {
   function renderFrame() {
     if (!canvas.isConnected) { renderer.setAnimationLoop(null); resizeObserver.disconnect(); renderer.dispose(); return; }
     const now = performance.now();
-    if (!reduced && now - lastFrame < 30) return;
+    if (!reduced && now - lastFrame < (finePointer ? 14 : 30)) return;
     lastFrame = now;
     const time = clock.getElapsedTime();
     if (!reduced) {
-      world.rotation.y += (targetYaw - world.rotation.y) * .065;
+      const sway = Math.sin(time * .45) * (isCampus ? .05 : .13);
+      world.rotation.y += (targetYaw + sway - world.rotation.y) * .065;
+      sparkles.rotation.y = time * .06;
+      sparkles.rotation.x = Math.sin(time * .2) * .05;
       world.rotation.x += (targetPitch - world.rotation.x) * .065;
       camera.position.y += ((isCampus ? 10 : 5.8) + targetY * (isCampus ? .18 : .12) - camera.position.y) * .035;
       world.userData.objects?.userData.floaties.forEach((object,index) => { object.position.y = object.userData.baseY + Math.sin(time * .75 + index * 1.7) * .1; object.rotation.y += .0018 * (index % 2 ? 1 : -1); });
