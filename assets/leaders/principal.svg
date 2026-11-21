@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 420" role="img" aria-labelledby="t"><title id="t">Illustrated portrait of the Principal</title>
+<defs>
+  <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e5a97c"/><stop offset="1" stop-color="#d6946a"/></linearGradient>
+  <linearGradient id="blazer" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7aa2"/><stop offset="1" stop-color="#ff4f7f"/></linearGradient>
+</defs>
+<!-- back hair -->
+<path d="M106 200 C94 124 140 96 180 96 C224 96 268 124 254 200 C260 252 268 296 252 326 L108 326 C92 296 100 252 106 200 Z" fill="#3b2a24"/>
+<!-- body: blazer -->
+<path d="M24 420 C26 352 66 316 138 300 L222 300 C294 316 334 352 336 420 Z" fill="url(#blazer)"/>
+<!-- neck -->
+<path d="M152 258 L152 308 L208 308 L208 258 Z" fill="#c98558"/>
+<!-- blouse -->
+<path d="M144 298 L180 376 L216 298 Q180 320 144 298 Z" fill="#ffffff"/>
+<path d="M150 301 Q180 346 210 301 Q180 318 150 301 Z" fill="#d6946a"/>
+<!-- lapels -->
+<path d="M138 300 L172 380 L132 420 L86 420 C86 362 108 320 138 300 Z" fill="#e63d6e"/>
+<path d="M222 300 L188 380 L228 420 L274 420 C274 362 252 320 222 300 Z" fill="#e63d6e"/>
+<path d="M138 300 L172 380 M222 300 L188 380" stroke="#b42a52" stroke-width="3" opacity=".6"/>
+<!-- brooch -->
+<circle cx="120" cy="364" r="8" fill="#ffc92e"/><circle cx="120" cy="364" r="3.5" fill="#ff7a3d"/>
+<!-- pendant chain -->
+<path d="M156 304 Q180 338 204 304" stroke="#ffc92e" stroke-width="3" fill="none" stroke-linecap="round"/>
+<!-- ears (mostly covered) + earrings -->
+<ellipse cx="119" cy="214" rx="9" ry="14" fill="#d6946a"/><ellipse cx="241" cy="214" rx="9" ry="14" fill="#d6946a"/>
+<circle cx="118" cy="232" r="5" fill="#ffc92e"/><circle cx="242" cy="232" r="5" fill="#ffc92e"/>
+<!-- face -->
+<path d="M120 200 C120 152 148 130 180 130 C212 130 240 152 240 200 C240 244 212 280 180 280 C148 280 120 244 120 200 Z" fill="url(#skin)"/>
+<!-- front hair, side parting -->
+<path d="M112 206 C100 126 144 104 184 104 C228 104 258 130 248 206 C246 172 230 150 204 142 C176 168 140 172 112 206 Z" fill="#3b2a24"/>
+<path d="M150 128 Q184 110 222 124 M138 160 Q168 150 190 142" stroke="#5a4036" stroke-width="5" fill="none" stroke-linecap="round" opacity=".85"/>
+<!-- face details -->
+<ellipse cx="156" cy="206" rx="6" ry="6.5" fill="#241a1a"/><circle cx="158" cy="204" r="1.9" fill="#fff"/>
+<ellipse cx="204" cy="206" rx="6" ry="6.5" fill="#241a1a"/><circle cx="206" cy="204" r="1.9" fill="#fff"/>
+<path d="M142 191 Q156 184 169 190 M191 190 Q204 184 218 191" stroke="#3b2a24" stroke-width="4" fill="none" stroke-linecap="round"/>
+<path d="M180 210 Q176 226 171 230 Q180 234 189 230" stroke="#b97a4f" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M160 246 Q180 262 200 246" stroke="#c2415b" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+<circle cx="141" cy="229" r="11" fill="#ff8a7a" opacity=".3"/><circle cx="219" cy="229" r="11" fill="#ff8a7a" opacity=".3"/>
+</svg>

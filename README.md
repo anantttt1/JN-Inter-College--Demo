@@ -12,6 +12,7 @@ The design uses a bright school palette (royal blue, sunshine yellow, orange and
 
 - Every section has depth: 3D tilt cards that follow the pointer, a hero with floating 3D shapes and a Three.js campus, sticky-button press effects, magnetic buttons, a soft cursor glow, photo parallax and scroll-triggered fly-in animations.
 - The "at a glance" strip counts up when it scrolls into view. Its numbers are demo values: edit the `stats` list in `site-config.js` to use the school's confirmed figures.
+- The "Our leadership" section shows the Chairperson, Director, Manager and Principal, each with a portrait, a short message, and their name and designation underneath. The portraits in `assets/leaders/` are illustrated placeholders and the names and messages are sample content. To use the real people, edit the `leaders` list in `site-config.js` (English and Hindi name, role, message) and set `photo` to the path of their photo, for example `assets/leaders/principal.jpg`. The Principal's note in the intro section updates automatically.
 - Pointer-only effects (tilt, glow, magnetic buttons) are skipped on touch devices, and all animation is reduced when the visitor prefers reduced motion.
 
 ## Demo interactions

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 420" role="img" aria-labelledby="t"><title id="t">Illustrated portrait of the Chairperson</title>
+<defs>
+  <linearGradient id="saree" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3b5bff"/><stop offset="1" stop-color="#1236c9"/></linearGradient>
+  <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e2a477"/><stop offset="1" stop-color="#d28f62"/></linearGradient>
+  <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffd84d"/><stop offset="1" stop-color="#f0a800"/></linearGradient>
+</defs>
+<!-- hair bun -->
+<circle cx="180" cy="104" r="27" fill="#2e2d3a"/>
+<path d="M162 96 Q180 82 198 96" stroke="#a9afc4" stroke-width="4" fill="none" stroke-linecap="round"/>
+<!-- body: saree -->
+<path d="M26 420 C28 352 68 316 138 300 L222 300 C292 316 332 352 334 420 Z" fill="url(#saree)"/>
+<path d="M112 301 L150 299 C192 352 250 392 306 420 L264 420 C220 392 168 352 112 301 Z" fill="url(#gold)"/>
+<path d="M126 301 L142 300 C186 350 240 388 284 420 L274 420 C230 390 178 350 126 301 Z" fill="#ff7a3d" opacity=".85"/>
+<path d="M26 420 C28 392 40 372 58 356 C80 398 110 420 118 420 Z" fill="#0f2a85" opacity=".55"/>
+<!-- neck + neckline -->
+<path d="M152 258 L152 306 Q180 330 208 306 L208 258 Z" fill="#c78457"/>
+<path d="M146 300 Q180 346 214 300 Q180 316 146 300 Z" fill="#d28f62"/>
+<path d="M150 304 Q180 336 210 304" stroke="url(#gold)" stroke-width="4" fill="none" stroke-linecap="round"/>
+<circle cx="180" cy="334" r="5" fill="#ffd84d"/>
+<!-- ears + earrings -->
+<ellipse cx="118" cy="214" rx="11" ry="17" fill="#d28f62"/><ellipse cx="242" cy="214" rx="11" ry="17" fill="#d28f62"/>
+<circle cx="117" cy="234" r="5.5" fill="#ffc92e"/><circle cx="243" cy="234" r="5.5" fill="#ffc92e"/>
+<circle cx="117" cy="245" r="3.5" fill="#ffd84d"/><circle cx="243" cy="245" r="3.5" fill="#ffd84d"/>
+<!-- face -->
+<path d="M118 200 C118 150 146 128 180 128 C214 128 242 150 242 200 C242 245 212 282 180 282 C148 282 118 245 118 200 Z" fill="url(#skin)"/>
+<!-- hair front, centre parting -->
+<path d="M112 206 C98 122 140 100 180 100 C220 100 262 122 248 206 C242 166 216 142 182 142 L178 142 C144 142 118 166 112 206 Z" fill="#2e2d3a"/>
+<path d="M180 102 L180 142" stroke="#c9ccdb" stroke-width="3" stroke-linecap="round"/>
+<path d="M128 164 Q146 146 170 144 M232 164 Q214 146 190 144" stroke="#b6bbd0" stroke-width="5" fill="none" stroke-linecap="round" opacity=".85"/>
+<!-- face details -->
+<circle cx="180" cy="171" r="4.2" fill="#e11d48"/>
+<ellipse cx="156" cy="206" rx="6" ry="6.5" fill="#241a1a"/><circle cx="158" cy="204" r="1.9" fill="#fff"/>
+<ellipse cx="204" cy="206" rx="6" ry="6.5" fill="#241a1a"/><circle cx="206" cy="204" r="1.9" fill="#fff"/>
+<path d="M142 192 Q156 185 169 191 M191 191 Q204 185 218 192" stroke="#3a3340" stroke-width="4" fill="none" stroke-linecap="round"/>
+<path d="M180 210 Q176 227 171 231 Q180 235 189 231" stroke="#b97a4f" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M159 248 Q180 264 201 248" stroke="#a3283e" stroke-width="5" fill="none" stroke-linecap="round"/>
+<circle cx="140" cy="230" r="11" fill="#ff8a7a" opacity=".3"/><circle cx="220" cy="230" r="11" fill="#ff8a7a" opacity=".3"/>
+<path d="M150 224 Q156 230 162 224 M198 224 Q204 230 210 224" stroke="#b97a4f" stroke-width="2" fill="none" stroke-linecap="round" opacity=".5"/>
+</svg>

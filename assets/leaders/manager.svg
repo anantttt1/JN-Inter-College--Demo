@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 420" role="img" aria-labelledby="t"><title id="t">Illustrated portrait of the Manager</title>
+<defs>
+  <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#cf8d60"/><stop offset="1" stop-color="#bd7a4f"/></linearGradient>
+  <linearGradient id="jacket" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff9a5a"/><stop offset="1" stop-color="#ff6a2d"/></linearGradient>
+</defs>
+<!-- body: white kurta -->
+<path d="M26 420 C28 352 68 316 138 300 L222 300 C292 316 332 352 334 420 Z" fill="#fffaf0"/>
+<path d="M180 322 L180 420" stroke="#e8dcc0" stroke-width="3"/>
+<!-- neck -->
+<path d="M152 258 L152 308 L208 308 L208 258 Z" fill="#ad6f45"/>
+<!-- mandarin collar -->
+<path d="M148 296 Q180 322 212 296 L212 312 Q180 338 148 312 Z" fill="#fffaf0" stroke="#e8dcc0" stroke-width="3" stroke-linejoin="round"/>
+<!-- jacket panels -->
+<path d="M44 420 C46 358 86 320 140 302 L170 336 L158 420 Z" fill="url(#jacket)"/>
+<path d="M316 420 C314 358 274 320 220 302 L190 336 L202 420 Z" fill="url(#jacket)"/>
+<path d="M140 302 L170 336 L158 420 M220 302 L190 336 L202 420" stroke="#d9531b" stroke-width="3" fill="none" opacity=".7"/>
+<!-- buttons -->
+<circle cx="180" cy="346" r="5" fill="#ffc92e"/><circle cx="180" cy="372" r="5" fill="#ffc92e"/><circle cx="180" cy="398" r="5" fill="#ffc92e"/>
+<!-- ears -->
+<ellipse cx="118" cy="213" rx="11" ry="17" fill="#bd7a4f"/><ellipse cx="242" cy="213" rx="11" ry="17" fill="#bd7a4f"/>
+<!-- face -->
+<path d="M118 200 C118 150 146 128 180 128 C214 128 242 150 242 200 C242 246 212 283 180 283 C148 283 118 246 118 200 Z" fill="url(#skin)"/>
+<!-- hair side swept -->
+<path d="M114 194 C104 116 148 100 186 102 C226 104 258 124 246 194 C240 158 220 142 188 140 C150 138 124 156 114 194 Z" fill="#1d1d27"/>
+<path d="M140 124 Q176 106 216 120" stroke="#3a3a48" stroke-width="5" fill="none" stroke-linecap="round" opacity=".7"/>
+<!-- face details -->
+<ellipse cx="156" cy="205" rx="6" ry="6.5" fill="#241a1a"/><circle cx="158" cy="203" r="1.9" fill="#fff"/>
+<ellipse cx="204" cy="205" rx="6" ry="6.5" fill="#241a1a"/><circle cx="206" cy="203" r="1.9" fill="#fff"/>
+<path d="M141 189 Q156 181 170 188 M190 188 Q204 181 219 189" stroke="#1d1d27" stroke-width="5" fill="none" stroke-linecap="round"/>
+<path d="M180 209 Q175 226 169 230 Q180 235 191 230" stroke="#a96b43" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<!-- moustache + smile -->
+<path d="M156 244 Q168 234 180 241 Q192 234 204 244 Q192 251 180 247 Q168 251 156 244 Z" fill="#1d1d27"/>
+<path d="M163 256 Q180 268 197 256" stroke="#8a3b2b" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+<circle cx="140" cy="230" r="11" fill="#ff8a7a" opacity=".22"/><circle cx="220" cy="230" r="11" fill="#ff8a7a" opacity=".22"/>
+</svg>

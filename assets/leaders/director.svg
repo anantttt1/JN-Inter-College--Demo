@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 420" role="img" aria-labelledby="t"><title id="t">Illustrated portrait of the Director</title>
+<defs>
+  <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9996b"/><stop offset="1" stop-color="#c98558"/></linearGradient>
+  <linearGradient id="suit" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#14308f"/><stop offset="1" stop-color="#0b1f66"/></linearGradient>
+</defs>
+<!-- body: suit -->
+<path d="M24 420 C26 352 66 316 138 300 L222 300 C294 316 334 352 336 420 Z" fill="url(#suit)"/>
+<!-- neck -->
+<path d="M152 258 L152 308 L208 308 L208 258 Z" fill="#b87a4f"/>
+<!-- shirt + tie -->
+<path d="M146 298 L180 372 L214 298 Q180 318 146 298 Z" fill="#ffffff"/>
+<path d="M172 322 L188 322 L186 337 L174 337 Z" fill="#ff7a3d"/>
+<path d="M174 337 L186 337 L193 394 L180 410 L167 394 Z" fill="#ff7a3d"/>
+<path d="M180 340 L180 404" stroke="#e0602a" stroke-width="3" opacity=".6"/>
+<!-- lapels -->
+<path d="M138 300 L170 378 L130 420 L88 420 C88 362 108 320 138 300 Z" fill="#1d3fb0"/>
+<path d="M222 300 L190 378 L230 420 L272 420 C272 362 252 320 222 300 Z" fill="#1d3fb0"/>
+<path d="M138 300 L170 378 M222 300 L190 378" stroke="#0b1f66" stroke-width="3" opacity=".6"/>
+<!-- pocket square -->
+<path d="M252 352 L278 346 L284 368 L258 372 Z" fill="#ffc92e"/><path d="M258 372 L270 358 L284 368 Z" fill="#ffe27a"/>
+<!-- ears -->
+<ellipse cx="118" cy="212" rx="11" ry="17" fill="#c98558"/><ellipse cx="242" cy="212" rx="11" ry="17" fill="#c98558"/>
+<!-- face -->
+<path d="M118 200 C118 150 146 128 180 128 C214 128 242 150 242 200 C242 245 212 282 180 282 C148 282 118 245 118 200 Z" fill="url(#skin)"/>
+<!-- hair + grey temples -->
+<path d="M114 196 C104 118 148 104 182 104 C224 104 258 122 246 196 C240 156 218 140 182 140 C146 140 122 156 114 196 Z" fill="#1d1d27"/>
+<path d="M115 196 C112 170 118 156 128 146 L136 164 C130 174 128 184 126 198 Z M245 196 C248 170 242 156 232 146 L224 164 C230 174 232 184 234 198 Z" fill="#a4abc4"/>
+<path d="M146 126 Q172 112 206 120" stroke="#3a3a48" stroke-width="5" fill="none" stroke-linecap="round" opacity=".7"/>
+<!-- glasses -->
+<rect x="136" y="189" width="38" height="30" rx="12" fill="#ffffff" fill-opacity=".14" stroke="#1f2a56" stroke-width="4.5"/>
+<rect x="186" y="189" width="38" height="30" rx="12" fill="#ffffff" fill-opacity=".14" stroke="#1f2a56" stroke-width="4.5"/>
+<path d="M174 202 Q180 197 186 202" stroke="#1f2a56" stroke-width="4" fill="none" stroke-linecap="round"/>
+<path d="M136 200 L122 196 M224 200 L238 196" stroke="#1f2a56" stroke-width="4" stroke-linecap="round"/>
+<!-- face details -->
+<ellipse cx="155" cy="205" rx="5.5" ry="6" fill="#241a1a"/><circle cx="157" cy="203" r="1.8" fill="#fff"/>
+<ellipse cx="205" cy="205" rx="5.5" ry="6" fill="#241a1a"/><circle cx="207" cy="203" r="1.8" fill="#fff"/>
+<path d="M140 181 Q155 174 170 180 M190 180 Q205 174 220 181" stroke="#1d1d27" stroke-width="5" fill="none" stroke-linecap="round"/>
+<path d="M180 210 Q175 228 169 232 Q180 237 191 232" stroke="#a96b43" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M156 250 Q180 270 204 250" stroke="#8a3b2b" stroke-width="5" fill="none" stroke-linecap="round"/>
+<path d="M163 253 Q180 266 197 253 Q180 258 163 253 Z" fill="#fff"/>
+<circle cx="140" cy="232" r="11" fill="#ff8a7a" opacity=".25"/><circle cx="220" cy="232" r="11" fill="#ff8a7a" opacity=".25"/>
+<path d="M132 238 Q150 270 180 276 Q210 270 228 238 Q214 284 180 286 Q146 284 132 238 Z" fill="#1d1d27" opacity=".1"/>
+</svg>

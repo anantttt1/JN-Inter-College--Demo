@@ -22,6 +22,25 @@
       const stat = config.stats && config.stats[i];
       if (stat && stat.en && stat.hi) { el.dataset.en = stat.en; el.dataset.hi = stat.hi; }
     });
+    // Leadership cards: any field given in config.leaders[i] replaces the sample content (same order as on the page).
+    $$('.leader-card').forEach((card, i) => {
+      const leader = config.leaders && config.leaders[i];
+      if (!leader) return;
+      const photo = $('.leader-photo>img', card);
+      if (leader.photo && photo) photo.src = leader.photo;
+      [['.leader-name', 'name'], ['.leader-post', 'role'], ['.leader-message', 'message']].forEach(([selector, key]) => {
+        const el = $(selector, card), en = leader[`${key}En`], hi = leader[`${key}Hi`];
+        if (el && en && hi) { el.dataset.en = en; el.dataset.hi = hi; }
+      });
+      if (card.id === 'leader-principal') {
+        const note = $('.principal-name');
+        if (note && leader.nameEn && leader.nameHi && leader.roleEn && leader.roleHi) {
+          note.dataset.en = `${leader.nameEn} · ${leader.roleEn}`; note.dataset.hi = `${leader.nameHi} · ${leader.roleHi}`;
+        }
+        const avatar = $('.principal-note .avatar img');
+        if (leader.photo && avatar) avatar.src = leader.photo;
+      }
+    });
     const detailEls = $$('.contact-details b');
     if (detailEls[0] && config.address) detailEls[0].textContent = config.address;
     if (detailEls[1] && config.phone) detailEls[1].textContent = config.phone;
@@ -79,14 +98,14 @@
   updateScrollMotion();
   // Scroll reveal: every block flies in from its own direction, with a stagger between siblings.
   const fxFor = (el, index) => {
-    if (el.matches('.learning-card')) return 'flip';
+    if (el.matches('.learning-card,.leader-card')) return 'flip';
     if (el.matches('.gallery-item,.stat-card')) return 'zoom';
     if (el.matches('.life-feature,.admissions-photo')) return 'left';
     if (el.matches('.life-tile,.admissions-panel')) return 'right';
     if (el.matches('.event-row')) return index % 2 ? 'right' : 'left';
     return '';
   };
-  const staggerSelector = '.learning-card,.gallery-item,.event-row,.stat-card,.life-tile';
+  const staggerSelector = '.learning-card,.leader-card,.gallery-item,.event-row,.stat-card,.life-tile';
   const revealObserver = 'IntersectionObserver' in window
     ? new IntersectionObserver(entries => entries.forEach(entry => {
         if (!entry.isIntersecting) return;
@@ -109,7 +128,13 @@
     });
   }
   window.jnReveal = jnReveal;
-  jnReveal($$('.intro-layout,.values-row,.manifesto-content,.section-heading-row,.stat-card,.learning-card,.campus-layout,.facility-line,.life-feature,.life-tile,.gallery-item,.event-row,.contact-layout,.admissions-photo,.admissions-panel'));
+  // Keep the "01 / 02 / 03" section numbers in page order (the 3D campus section is inserted after this script runs).
+  window.jnRenumber = () => $$('.section-kicker>span:first-child').forEach((el, i) => {
+    const label = el.firstChild;
+    if (label && label.nodeType === 3) label.textContent = `${String(i + 1).padStart(2, '0')} / `;
+  });
+  window.jnRenumber();
+  jnReveal($$('.intro-layout,.values-row,.manifesto-content,.section-heading-row,.stat-card,.leader-card,.learning-card,.campus-layout,.facility-line,.life-feature,.life-tile,.gallery-item,.event-row,.contact-layout,.admissions-photo,.admissions-panel'));
 
   // Count-up numbers in the "at a glance" strip.
   const formatNum = n => Math.round(n).toLocaleString('en-IN');
@@ -175,7 +200,7 @@
   // Pointer controlled 3D tilt for larger screens; touch and reduced-motion users keep a calm layout.
   const tiltQuery = window.matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
   if (tiltQuery.matches) {
-    const tiltItems = $$('.learning-card,.gallery-item,.life-feature,.life-tile,.event-row,.contact-form,.intro-image-wrap,.stat-card');
+    const tiltItems = $$('.learning-card,.leader-card,.gallery-item,.life-feature,.life-tile,.event-row,.contact-form,.intro-image-wrap,.stat-card');
     tiltItems.forEach(el => {
       el.classList.add('tilt-surface');
       el.addEventListener('pointermove', event => {
