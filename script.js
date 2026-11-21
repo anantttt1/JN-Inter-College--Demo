@@ -27,7 +27,14 @@
       const leader = config.leaders && config.leaders[i];
       if (!leader) return;
       const photo = $('.leader-photo>img', card);
-      if (leader.photo && photo) photo.src = leader.photo;
+      if (leader.photo && photo) {
+        // A real photo fills the frame (cover); if the file path is wrong we fall back to the illustrated portrait.
+        const original = photo.getAttribute('src');
+        card.classList.add('has-photo');
+        photo.dataset.fallback = 'true'; // skip the generic image fallback; restore our own illustration instead
+        photo.addEventListener('error', () => { card.classList.remove('has-photo'); photo.src = original; }, { once: true });
+        photo.src = leader.photo;
+      }
       [['.leader-name', 'name'], ['.leader-post', 'role'], ['.leader-message', 'message']].forEach(([selector, key]) => {
         const el = $(selector, card), en = leader[`${key}En`], hi = leader[`${key}Hi`];
         if (el && en && hi) { el.dataset.en = en; el.dataset.hi = hi; }
@@ -38,7 +45,12 @@
           note.dataset.en = `${leader.nameEn} · ${leader.roleEn}`; note.dataset.hi = `${leader.nameHi} · ${leader.roleHi}`;
         }
         const avatar = $('.principal-note .avatar img');
-        if (leader.photo && avatar) avatar.src = leader.photo;
+        if (leader.photo && avatar) {
+          const originalAvatar = avatar.getAttribute('src');
+          avatar.dataset.fallback = 'true';
+          avatar.addEventListener('error', () => { avatar.src = originalAvatar; }, { once: true });
+          avatar.src = leader.photo;
+        }
       }
     });
     const detailEls = $$('.contact-details b');

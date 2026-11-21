@@ -209,6 +209,9 @@ body.hindi .manifesto-content p{line-height:1.24}
 .leader-photo:after{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(#ffffff2e 2px,transparent 2px) 0 0/26px 26px}
 .leader-photo>img{position:absolute;left:0;bottom:0;width:100%;height:100%;object-fit:contain;object-position:50% 100%;filter:drop-shadow(0 16px 18px #0b1f6655);transform-origin:50% 100%;transition:transform .6s var(--pop)}
 .leader-card:hover .leader-photo>img{transform:scale(1.07) translateY(-4px)}
+.leader-card.has-photo .leader-photo>img{object-fit:cover;object-position:50% 18%;filter:none}
+.leader-card.has-photo .leader-photo:before,.leader-card.has-photo .leader-photo:after{opacity:0}
+.leader-card.has-photo:hover .leader-photo>img{transform:scale(1.05)}
 .leader-no{position:absolute;z-index:2;left:18px;top:16px;background:#ffffff38;border:2px solid #ffffff66;color:#fff;padding:5px 14px;border-radius:999px;font-size:15px;font-weight:800;letter-spacing:.08em;backdrop-filter:blur(6px)}
 .leader-photo>i{position:absolute;z-index:2;right:20px;top:14px;font-style:normal;font-size:28px;color:#fff;animation:spin 12s linear infinite}
 .lc-sun .leader-no,.lc-sun .leader-photo>i{color:var(--navy)}
